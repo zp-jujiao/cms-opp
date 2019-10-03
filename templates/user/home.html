@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css" >
+</head>
+<style>
+    .back{
+        background-color: black;
+    }
+    .left-list{
+        overflow:hidden; /*超出的部分隐藏起来。*/
+        white-space:nowrap;/*不显示的地方用省略号...代替*/
+        text-overflow:ellipsis;/* 支持 IE */
+    }
+    .carousel-caption{
+        bottom: 0;
+    }
+    .tab-h2 {
+        font-size:20px;
+    }
+
+    .tab-p {
+        font-size: 15px;
+    }
+    @media (min-width: 768px) {
+        .tab-h2 {
+            font-size: 22px;
+        }
+        .tab-p {
+            font-size: 16px;
+        }
+    }
+    @media (min-width: 992px) {
+        .tab-h2 {
+            font-size:26px;
+        }
+        .tab-p {
+            font-size: 17px;
+        }
+    }
+    {#.container-fluid{#}
+    {#    padding-left: 0px;#}
+    {#    padding-right: 0px;#}
+    {# }#}
+</style>
+<body>
+    <div class="container-fluid" style="margin-bottom: 40px">
+        <div class="row">
+            {% include 'user-common/header.html' %}
+        </div>
+        {% include 'user-common/footer.html' %}
+        <div class="row">
+            <div class="col-xs-8 newPadd">
+                <div class="row">
+                    <div class="col-xs-9">
+                        <div id="myCarousel" class="carousel slide">
+                            <!-- 轮播（Carousel）指标 -->
+        {#                    <ol class="carousel-indicators">#}
+        {#                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>#}
+        {#                        <li data-target="#myCarousel" data-slide-to="1"></li>#}
+        {#                        <li data-target="#myCarousel" data-slide-to="2"></li>#}
+        {#                    </ol>#}
+                            <!-- 轮播（Carousel）项目 -->
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img src="/static/img/c1.jpg" alt="First slide" class="center-block" style="width: 100%;">
+                                    <div class="carousel-caption" style="background-color: rgba(0,0,0,0.5);">Chrome浏览器</div>
+                                </div>
+                                <div class="item">
+                                    <img src="/static/img/c4.jpg" alt="Second slide" class="center-block" style="width: 100%;">
+                                    <div class="carousel-caption" style="background-color: rgba(0,0,0,0.5);width: 100%">Firefox浏览器</div>
+                                </div>
+                                <div class="item">
+                                    <img src="/static/img/c13.jpg" alt="Third slide"  class="center-block" style="width: 100%;">
+                                    <div class="carousel-caption" style="background-color: rgba(0,0,0,0.5);width: 100%">Safari浏览器</div>
+                                </div>
+                            </div>
+                            <!-- 轮播（Carousel）导航 -->
+                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" >
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="text-center border-width" style="border: 1px solid lightgray;margin: 10px;position: relative;padding: 5px">
+                            <img  src="/static/img/c1.jpg" class="img-height" >
+                            <div class="img-weight" style="position: absolute;bottom: 5px;z-index: 10;background-color: rgba(0,0,0,0.5);color: white" >Chrome浏览器</div>
+                        </div>
+                        <div class="text-center border-width" style="border: 1px solid lightgray;margin: 10px;position: relative;padding: 5px">
+                            <img  src="/static/img/c4.jpg" class="img-height" >
+                            <div class="img-weight" style="position: absolute;bottom: 5px;z-index: 10;background-color: rgba(0,0,0,0.5);color: white">Firefox浏览器</div>
+                        </div>
+                        <div class="text-center border-width" style="border: 1px solid lightgray;margin: 10px;position: relative;padding: 5px">
+                            <img  src="/static/img/c13.jpg" class="img-height" >
+                            <div class="img-weight" style="position: absolute;bottom: 5px;z-index: 10;background-color: rgba(0,0,0,0.5);color: white;">Safari浏览器</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12"><!-- .weghiet -->
+                        <div class="row" style="border-bottom: 2px solid lightgray">
+                            <div class="col-sm-3 text-center">
+                                <img src="/static/img/a1.jpg" alt="inimgsmall">
+                            </div>
+                            <div class="col-sm-9 text-left">
+                                <h4 style="padding:20px 0 0px 0"><a href="#">TV host’s hand impaled on nail in failed magic trick</a></h4>
+                                <p style="padding:0 0 10px 0">哦都是金佛山的家公司的囧傻吊港囧十多家公司对接公司递交给哦时间大概哦司机都给十多个敢死队</p>
+                                <span class="post-date">Posted On July 22, 2016</span>
+                                <span class="glyphicon glyphicon-education" style="color: #5bc0de">100</span>
+                            </div>
+                        </div>
+                        <div class="row" style="border-bottom: 2px solid lightgray">
+                            <div class="col-sm-3 text-center">
+                                <img src="/static/img/a2.jpg" alt="inimgsmall3">
+                            </div>
+                            <div class="col-sm-9 text-left">
+                                <h4 style="padding:20px 0 0px 0"><a href="#">Five ugly truths about Gilmore Girls </a></h4>
+                                <p style="padding:0 0 10px 0">哦都是金佛山的家公司的囧傻吊港囧十多家公司对接公司递交给哦时间大概哦司机都给十多个敢死队</p>
+                                <span class="post-date">Posted On December 22, 2016</span>
+                                <span class="glyphicon glyphicon-education" style="color: #5bc0de">100</span>
+                            </div>
+                        </div><!-- /.weghiet --><!-- .weghiet -->
+                        <div class="row" style="border-bottom: 2px solid lightgray">
+                            <div class="col-sm-3 text-center">
+                                <img src="/static/img/a3.jpg" alt="inimgsmall3">
+                            </div>
+                            <div class="col-sm-9 text-left">
+                                <h4 style="padding:20px 0 0px 0"><a href="#">One more time? Federer’s golden opportunity</a></h4>
+                                <p style="padding:0 0 10px 0">哦都是金佛山的家公司的囧傻吊港囧十多家公司对接公司递交给哦时间大概哦司机都给十多个敢死队</p>
+                                <span class="post-date">Posted On December 22, 2016</span>
+                                <span class="glyphicon glyphicon-education" style="color: #5bc0de">100</span>
+                            </div>
+                        </div><!-- /.weghiet --><!-- .weghiet -->
+                        <div class="row" style="border-bottom: 2px solid lightgray">
+                            <div class="col-sm-3 text-center">
+                                <img src="/static/img/a4.jpg" alt="inimgsmall4">
+                            </div>
+                            <div class="col-sm-9 text-left">
+                                <h4 style="padding:20px 0 0px 0"><a href="#">Bullied by wedding guests over her dress</a></h4>
+                                <p style="padding:0 0 10px 0">哦都是金佛山的家公司的囧傻吊港囧十多家公司对接公司递交给哦时间大概哦司机都给十多个敢死队</p>
+                                <span class="post-date">Posted On December 22, 2016</span>
+                                <span class="glyphicon glyphicon-education" style="color: #5bc0de">100</span>
+                            </div>
+                        </div><!-- /.weghiet --><!-- .weghiet -->
+                        <div class="row">
+                            <div class="col-xs-offset-5">
+                                <ul class="pagination">
+                                    <li><a href="#">&laquo;</a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">&raquo;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include 'user-common/left.html' %}
+        </div>
+    </div>
+</body>
+</html>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script>
+    init()
+    function init() {
+        var a=''
+        a=$(".carousel-inner").height()
+        {#console.log(a)#}
+        var a1=''
+        a1=a/3-20
+        var a2
+        a2=a1/4
+        console.log(a1)
+        $(".img-height").css("height",a1+"px")
+        $(".img-weight").css("height",a2+"px")
+        $(".img-weight").css("line-height",a2+"px")
+
+        var b=""
+        b=$(".border-width").width()
+        $(".img-height").css("width",b+"px")
+        $(".img-weight").css("width",b+"px")
+
+
+        {#修改图片2宽度和框一致#}
+        var c=""
+        c=$(".border2-width").width()
+        {#$(".img2-height").css("width",c+"px")#}
+        $(".img2-weight").css("width",c+"px")
+    }
+
+    {#侦听浏览器窗口变化#}
+    $(window).resize(function() {
+        {#调整图片高度#}
+        var a=''
+        a=$(".carousel-inner").height()
+        {#console.log(a)#}
+        var a1=''
+        a1=a/3-20
+        var a2
+        a2=a1/4
+        console.log(a1)
+        $(".img-height").css("height",a1+"px")
+        $(".img-weight").css("height",a2+"px")
+        $(".img-weight").css("line-height",a2+"px")
+
+        {#修改图片宽度和框一致#}
+        var b=""
+        b=$(".border-width").width()
+        $(".img-height").css("width",b+"px")
+        $(".img-weight").css("width",b+"px")
+
+        {#修改图片2宽度和框一致#}
+        var c=""
+        c=$(".border2-width").width()
+        {#$(".img2-height").css("width",c+"px")#}
+        $(".img2-weight").css("width",c+"px")
+    });
+</script>

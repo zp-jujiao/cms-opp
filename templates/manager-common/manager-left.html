@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>左侧边栏</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css" >
+    <style type="text/css">
+        *{margin: 0;padding: 0;border: 0;}
+        a{text-decoration: none;}
+        body {
+            font-family: "微软雅黑";
+        }
+        .left{
+            padding-left: 10px;
+        }
+        .list-group-item{
+            background-color: #122B40;
+            border:none
+        }
+        .list-group a{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="list-group col-sm-2">
+        <a href="#" class="list-group-item active">
+            <span class="glyphicon glyphicon-home"></span>
+            首页
+        </a>
+        <a href="#" class="list-group-item">
+            <span class="glyphicon glyphicon-list"></span>
+            菜单管理
+        </a>
+        <a href="#" class="list-group-item">
+            <span class="glyphicon glyphicon-book"></span>
+            文章管理
+        </a>
+        <a href="#" class="list-group-item">
+            <span class="glyphicon glyphicon-user"></span>
+            用户管理
+        </a>
+        <a href="#" class="list-group-item">
+            <span class="glyphicon glyphicon-bookmark"></span>
+            推荐位管理
+        </a>
+        <a href="#" class="list-group-item">
+            <span class="glyphicon glyphicon-menu-hamburger"></span>
+            推荐位内容管理
+        </a>
+        <a href="#" class="list-group-item">
+            <span class="glyphicon glyphicon-cog"></span>
+            基本管理
+        </a>
+        <div style="height: 270px;background-color: #122B40;"></div>
+    </div>
+</body>
+</html>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script>
+    init()
+    function init(){
+        $("a").click(change);
+    }
+    function change(){
+        $("a").removeClass("active")
+        $(this).toggleClass("active")
+    }
+</script>
