@@ -14,62 +14,16 @@
         {% include 'user-common/footer.html' %}
         <div class="row">
             <div class="col-xs-8 news"><!-- .weghiet -->
-                <div class="row" style="border-bottom: 2px solid lightgray">
-                    <div class="col-sm-3 text-center">
-                        <img src="/static/img/a1.jpg" alt="inimgsmall">
-                    </div>
-                    <div class="col-sm-9 text-left">
-                        <h4 style="padding:20px 0 0px 0"><a href="#">TV host’s hand impaled on nail in failed magic trick</a></h4>
-                        <p style="padding:0 0 10px 0">哦都是金佛山的家公司的囧傻吊港囧十多家公司对接公司递交给哦时间大概哦司机都给十多个敢死队</p>
-                        <span class="post-date">Posted On July 22, 2016</span>
-                        <span class="glyphicon glyphicon-education" style="color: #5bc0de">100</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 2px solid lightgray">
-                    <div class="col-sm-3 text-center">
-                        <img src="/static/img/a2.jpg" alt="inimgsmall3">
-                    </div>
-                    <div class="col-sm-9 text-left">
-                        <h4 style="padding:20px 0 0px 0"><a href="#">Five ugly truths about Gilmore Girls </a></h4>
-                        <p style="padding:0 0 10px 0">哦都是金佛山的家公司的囧傻吊港囧十多家公司对接公司递交给哦时间大概哦司机都给十多个敢死队</p>
-                        <span class="post-date">Posted On December 22, 2016</span>
-                        <span class="glyphicon glyphicon-education" style="color: #5bc0de">100</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 2px solid lightgray">
-                    <div class="col-sm-3 text-center">
-                        <img src="/static/img/a3.jpg" alt="inimgsmall3">
-                    </div>
-                    <div class="col-sm-9 text-left">
-                        <h4 style="padding:20px 0 0px 0"><a href="#">One more time? Federer’s golden opportunity</a></h4>
-                        <p style="padding:0 0 10px 0">哦都是金佛山的家公司的囧傻吊港囧十多家公司对接公司递交给哦时间大概哦司机都给十多个敢死队</p>
-                        <span class="post-date">Posted On December 22, 2016</span>
-                        <span class="glyphicon glyphicon-education" style="color: #5bc0de">100</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 2px solid lightgray">
-                    <div class="col-sm-3 text-center">
-                        <img src="/static/img/a4.jpg" alt="inimgsmall4">
-                    </div>
-                    <div class="col-sm-9 text-left">
-                        <h4 style="padding:20px 0 0px 0"><a href="#">Bullied by wedding guests over her dress</a></h4>
-                        <p style="padding:0 0 10px 0">哦都是金佛山的家公司的囧傻吊港囧十多家公司对接公司递交给哦时间大概哦司机都给十多个敢死队</p>
-                        <span class="post-date">Posted On December 22, 2016</span>
-                        <span class="glyphicon glyphicon-education" style="color: #5bc0de">100</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-offset-5">
-                        <ul class="pagination">
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
-                    </div>
+                <div class='col-xs-offset-6 pages'>
+                    <ul class='pagination'>
+                        {% for item in list %}
+                            {% if item == 1 %}
+                            <li class='active pagelist' onclick='changepage({{ item }})'><a>{{ item }}</a></li>
+                            {% else %}
+                            <li class="pagelist" onclick='changepage({{ item }})'><a>{{ item }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
             {% include 'user-common/left.html' %}
@@ -81,6 +35,7 @@
 <script src="/static/js/bootstrap.js"></script>
 <script>
     init()
+    var id
     function init() {
         {#修改图片2宽度和框一致#}
         var c=""
@@ -88,24 +43,25 @@
         {#$(".img2-height").css("width",c+"px")#}
         $(".img2-weight").css("width",c+"px")
 
-        var id
+
         id=$("#header-point .active").data("name")
         console.log(id)
         $.ajax({
 			type:"get",
 			dataType:"json",
             data:{
-			    id:id
+			    id:id,
+                num:0,
             },
 			url:"http://127.0.0.1:8000/user/subajax/",
 			success:function(data){
 				//处理接收过来的数据  作者的名字 赋值给标签
                 var content=data["cont"]
                 var news=data["news"]
+                var list=data["list"]
                 console.log(content,news)
                 console.log(content.length)
                 var newslist=''
-                newslist=$(".news").html()
                 for (var i=0;i<content.length;i++){
                     console.log(content[i],news[i])
                     var smallcont=content[i]['content']
@@ -114,6 +70,21 @@
                     var div="<div class='row' style='border-bottom: 2px solid lightgray'><div class='col-sm-3 text-center'><img src='/static/img/a4.jpg'></div><div class='col-sm-9 text-left'> <h4 style='padding:20px 0 0px 0,'><a href='/user/detail/?id="+news[i]['id']+"' style='color:"+news[i].titlecolor+"'>"+news[i]['title']+"</a></h4> <p style='height:55px'>"+smallcont.split('。')[0]+"</p> <span class='post-date'>"+newtime+"</span><span class='glyphicon glyphicon-education' style='color: #5bc0de'>"+news[i]['num']+"</span></div></div>"
                     newslist+=div
                 }
+                {#var page="<div class='col-xs-offset-6'><ul class='pagination' id='pagelist'>"#}
+                {#for(var j=0;j<list.length;j++){#}
+                {#    if(list[j]==1){#}
+                {#        var lipage="<li class='active pagelist' onclick='changepage("+list[j]+")'><a>"+list[j]+"</a></li>"#}
+                {#        page+=lipage#}
+                {#    }#}
+                {#    else{#}
+                {#        var lipage = "<li class='pagelist' onclick='changepage("+list[j]+")'><a>" + list[j] + "</a></li>"#}
+                {#        page += lipage#}
+                {#    }#}
+                {# }#}
+                {#var lastpage="</ul></div>"#}
+                {#page+=lastpage#}
+                {#newslist+=page#}
+                newslist+=$(".news").html()
                 $(".news").html(newslist)
 			}
 		});
@@ -150,5 +121,62 @@
             format = format.replace(formatArr[i], newArr[i])
         }
         return format;
+    }
+
+    function changepage(i){
+        var arr=document.getElementsByClassName("pagelist")
+        for (var j=0;j<arr.length;j++){
+            arr[j].classList.remove("active");
+        }
+        arr[i-1].classList.add("active");
+        var num=i-1
+        $.ajax({
+			type:"get",
+			dataType:"json",
+            data:{
+			    id:id,
+                num:num,
+            },
+			url:"http://127.0.0.1:8000/user/subajax/",
+			success:function(data){
+				//处理接收过来的数据  作者的名字 赋值给标签
+                var content=data["cont"]
+                var news=data["news"]
+                var list=data["list"]
+                console.log(content,news)
+                console.log(content.length)
+                var newslist=''
+                {#newslist=$(".news").html()#}
+                for (var i=0;i<content.length;i++){
+                    console.log(content[i],news[i])
+                    var smallcont=content[i]['content']
+                    console.log(smallcont.split('。')[0])
+                    var newtime=formatTime(news[i]['registtime'], 'Y年M月D日 h:m:s')
+                    var div="<div class='row' style='border-bottom: 2px solid lightgray'><div class='col-sm-3 text-center'><img src='/static/img/a4.jpg'></div><div class='col-sm-9 text-left'> <h4 style='padding:20px 0 0px 0,'><a href='/user/detail/?id="+news[i]['id']+"' style='color:"+news[i].titlecolor+"'>"+news[i]['title']+"</a></h4> <p style='height:55px'>"+smallcont.split('。')[0]+"</p> <span class='post-date'>"+newtime+"</span><span class='glyphicon glyphicon-education' style='color: #5bc0de'>"+news[i]['num']+"</span></div></div>"
+                    newslist+=div
+                }
+                {#var page="<div class='col-xs-offset-6'><ul class='pagination' id='pagelist'>"#}
+                {#for(var j=0;j<list.length;j++){#}
+                {#    if(list[j]==1){#}
+                {#        var lipage="<li class='active pagelist' onclick='changepage("+list[j]+")'><a>"+list[j]+"</a></li>"#}
+                {#        page+=lipage#}
+                {#    }#}
+                {#    else{#}
+                {#        var lipage = "<li class='pagelist' onclick='changepage("+list[j]+")'><a>" + list[j] + "</a></li>"#}
+                {#        page += lipage#}
+                {#    }#}
+                {# }#}
+                {#var lastpage="</ul></div>"#}
+                {#page+=lastpage#}
+                {#newslist+=page#}
+                var firstpage="<div class='col-xs-offset-6 pages'>"
+                var pagecont=$(".pages").html()
+                var lastpage="</div>"
+                firstpage+=pagecont
+                firstpage+=lastpage
+                newslist+=firstpage
+                $(".news").html(newslist)
+			}
+		});
     }
 </script>
