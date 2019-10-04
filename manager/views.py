@@ -4,6 +4,7 @@ from django.forms import forms
 from DjangoUeditor.forms import  UEditorField
 from manager.models import *
 import json
+from datetime import datetime
 
 # Create your views here.
 #管理员管理
@@ -31,15 +32,17 @@ def loginHandler(request):
     username = request.POST.get("username")
     password = request.POST.get("password")
     email = request.POST.get("email")
+    now=datetime.now()
     userinfo = admin.objects.get(username=username)
     if userinfo:
         #     当用户名存在的时候
         if password == userinfo.password:
-            response = HttpResponse(returnResult(0, "登录成功",{"id": userinfo.id}) )
+            admin.objects.filter(username=username).update(lasttime=datetime.now())
+            response = HttpResponse(returnResult(0, "登录成功,欢迎来到路赞后台管理系统",{"id": userinfo.id}) )
             response.set_cookie("id", userinfo.id,max_age=60*60*24*1)
             return response
-        return HttpResponse(returnResult(1, "密码错误"))
-    return HttpResponse(returnResult(1, "用户名错误"))
+        return HttpResponse(returnResult(1, "密码输入错误，请重新输入"))
+    return HttpResponse(returnResult(1, "用户名输入错误，请再次确认"))
 
 
 def returnResult(code,mgs,data=""):
@@ -62,10 +65,14 @@ def returnResult(code,mgs,data=""):
 def homePage(request):
     template = loader.get_template('manager/manage-homePage.html')
     id = request.COOKIES["id"]
+    # 登陆用户数量
+    today=datetime.now().strftime("%y-%m-%d")
+    userSum=admin.objects.filter(lasttime__contains=today).count()
     global name
     name = admin.objects.values("username").get(id=id)
     context = {
-        "name": name
+        "name": name,
+        "userSum":userSum
     }
     return HttpResponse(template.render(context, request))
 
@@ -77,22 +84,24 @@ def menulist(request):
         listinfo.append(item)
     context = {
         "listinfo":listinfo,
-        "name":name
+        # "name":name
     }
     return HttpResponse(template.render(context,request))
 # 添加菜单
 def addmenu(request):
     template=loader.get_template('manager/manage-addmenu.html')
     context = {
-        "name":name
+        # "name":name
     }
     return HttpResponse(template.render(context,request))
 
 
-# def addmenuajax(request):
-#     menuname =request.GET.get('menuname')
-#     modelname =request.GET.get('modelname')
-#     type = request.GET.get('type')
-#     open =request.GET.get('open')
-#     print(menuname+"---"+modelname+"----"+type+"---"+open)
-#     return
+def addmenuajax(request):
+    menuname =request.POST.get('menuname')
+    modelname =request.POST.get('modelname')
+    type = request.POST.get('position')
+    open =request.POST.get('off')
+    addTime = menu(name=menuname)
+    addTime.save()
+
+    return HttpResponse(0)

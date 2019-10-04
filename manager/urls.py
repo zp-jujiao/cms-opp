@@ -10,5 +10,5 @@ urlpatterns = [
     path('homepage/',views.homePage),
     path('menulist/',views.menulist),
     path('addmenu/',views.addmenu),
-    # path('addmenuajax/',views.addmenuajax),
+    path('addmenuajax/',views.addmenuajax),
 ]
