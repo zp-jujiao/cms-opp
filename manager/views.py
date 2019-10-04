@@ -86,20 +86,28 @@ def loginHandler(request):
     # 接收前端提交的数据
     username = request.POST.get("username")
     password = request.POST.get("password")
+<<<<<<< HEAD
     login_list = admin.objects.values("username","password").all()
     userinfo=login_list["username"]
     print(userinfo)
     print(1234)
     if userinfo == "error":
         return HttpResponse( "登录错误")
+=======
+    email = request.POST.get("email")
+    now=datetime.now()
+    userinfo = admin.objects.get(username=username)
+>>>>>>> 77b0e4e7678b103d2144721c9d8d0e69e7d23d96
     if userinfo:
         #     当用户名存在的时候
-        if password == userinfo["password"]:
-            response = HttpResponse("登陆成功", {"id": userinfo["id"]})
-            response.set_cookie("id", userinfo["id"])
+        if password == userinfo.password:
+            admin.objects.filter(username=username).update(lasttime=datetime.now())
+            response = HttpResponse(returnResult(0, "登录成功,欢迎来到路赞后台管理系统",{"id": userinfo.id}) )
+            response.set_cookie("id", userinfo.id,max_age=60*60*24*1)
             return response
-        return HttpResponse(returnResult(1, "密码错误"))
-    return HttpResponse(returnResult(1, "用户名错误"))
+        return HttpResponse(returnResult(1, "密码输入错误，请重新输入"))
+    return HttpResponse(returnResult(1, "用户名输入错误，请再次确认"))
+
 
 def returnResult(code,mgs,data=""):
     '''
@@ -116,12 +124,23 @@ def returnResult(code,mgs,data=""):
     returndata = json.dumps(returndata1)
     return returndata
 
+
 # 首页
 def homePage(request):
     template = loader.get_template('manager/manage-homePage.html')
-    context = {}
+    id = request.COOKIES["id"]
+    # 登陆用户数量
+    today=datetime.now().strftime("%y-%m-%d")
+    userSum=admin.objects.filter(lasttime__contains=today).count()
+    global name
+    name = admin.objects.values("username").get(id=id)
+    context = {
+        "name": name,
+        "userSum":userSum
+    }
     return HttpResponse(template.render(context, request))
 
+<<<<<<< HEAD
 def menu(request):
     template=loader.get_template('manager/manage-menu.html')
     context = {}
@@ -143,3 +162,34 @@ def transdata(code, msg, id=""):
             "id": id
         }
     return dic
+=======
+def menulist(request):
+    template=loader.get_template('manager/manage-menulist.html')
+    menuList=menu.objects.all()
+    listinfo=[]
+    for item in menuList:
+        listinfo.append(item)
+    context = {
+        "listinfo":listinfo,
+        # "name":name
+    }
+    return HttpResponse(template.render(context,request))
+# 添加菜单
+def addmenu(request):
+    template=loader.get_template('manager/manage-addmenu.html')
+    context = {
+        # "name":name
+    }
+    return HttpResponse(template.render(context,request))
+
+
+def addmenuajax(request):
+    menuname =request.POST.get('menuname')
+    modelname =request.POST.get('modelname')
+    type = request.POST.get('position')
+    open =request.POST.get('off')
+    addTime = menu(name=menuname)
+    addTime.save()
+
+    return HttpResponse(0)
+>>>>>>> 77b0e4e7678b103d2144721c9d8d0e69e7d23d96

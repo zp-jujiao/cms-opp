@@ -8,5 +8,7 @@ urlpatterns = [
     path('login/',views.login),
     path('loginHandler/',views.loginHandler),
     path('homepage/',views.homePage),
-    path('menu/',views.menu),
+    path('menulist/',views.menulist),
+    path('addmenu/',views.addmenu),
+    path('addmenuajax/',views.addmenuajax),
 ]

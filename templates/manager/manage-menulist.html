@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>菜单管理</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css" >
+    <style>
+        .table th{
+				text-align: center;
+			}
+    </style>
+</head>
+<body>
+    {% include 'manager-common/manager-head.html' %}
+    <div class="row left">
+        {% include 'manager-common/manager-left.html' %}
+        <div class="col-sm-10 main" style="margin-top: 10px;">
+            <ol class="breadcrumb">
+                <span class="glyphicon glyphicon-tags" style="padding-right: 5px;"></span>
+                <li><a href="/manager/menulist">菜单管理</a></li>
+                <li class="active">菜单列表</li>
+            </ol>
+	    	<div class="col-sm-3 btn-group open">
+		      	<button type="button" class="btn btn-primary"><a href="/manager/addmenu" style="color: white">+添加菜单</a></button>
+		    </div>
+		    <div class="col-sm-6 input-group">
+		        <span class="input-group-addon" id="basic-addon1">类型</span>
+                <select class="form-control" name="catid">
+                    <option disabled selected>全部菜单</option>
+                    {% for item in listinfo %}
+                        <option value="{{ item.id }}">{{ item.name }}</option>
+                    {% endfor %}
+                </select>
+		    </div>
+            <div class="col-sm-11">
+                <table class="table table-hover table-bordered" style="text-align: center;">
+				      <thead>
+					    <tr>
+					      <th>id</th>
+					      <th>菜单名</th>
+					      <th>模块名</th>
+					      <th>类型</th>
+                               <th>状态</th>
+					      <th>操作</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>1</td>
+					      <td>菜单管理</td>
+					      <td>menu</td>
+					      <td>后台栏目</td>
+						       <td>显示</td>
+					      <td>
+                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
+                                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                              </td>
+					    </tr>
+					    <tr>
+					       <td>1</td>
+					       <td>推荐位管理</td>
+					       <td>position</td>
+					       <td>后台栏目</td>
+						        <td>显示</td>
+					       <td>
+                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
+                                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                </td>
+					    </tr>
+					    <tr>
+					       <td>1</td>
+					      	<td>体育</td>
+					      	<td>cat</td>
+					      	<td>前台栏目</td>
+							    <td>显示</td>
+					      	<td>
+                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
+                                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                </td>
+					    </tr>
+						    <tr>
+					        <td>1</td>
+					        <td>推荐位管理</td>
+					        <td>positionContent</td>
+					        <td>后台栏目</td>
+							     <td>显示</td>
+					        <td>
+                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
+                                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                </td>
+					    </tr>
+						    <tr>
+					      	<td>1</td>
+					      	<td>文章管理</td>
+					      	<td>content</td>
+					      	<td>后台栏目</td>
+							    <td>显示</td>
+					      	<td>
+                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
+                                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                </td>
+					    </tr>
+						    <tr>
+					       <td>1</td>
+					      	<td>用户管理</td>
+					      	<td>user</td>
+					      	<td>后台栏目</td>
+							    <td>显示</td>
+					      	<td>
+                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
+                                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                </td>
+					    </tr>
+						   <tr>
+					       <td>1</td>
+					      	<td>科技</td>
+					      	<td>cat</td>
+					      	<td>前台栏目</td>
+							    <td>显示</td>
+					      	<td>
+                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
+                                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                </td>
+					    </tr>
+					</tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

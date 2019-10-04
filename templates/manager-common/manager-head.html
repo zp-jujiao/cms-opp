@@ -12,29 +12,33 @@
             font-family: "微软雅黑";
         }
         .head{
-            background-color: #122B40;
+            background-color: #3b4249;
             color: white;
             line-height: 50px;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-inverse" style="margin-bottom: 0;border:none;">
-        <div class="container-fluid">
-            <div class="row head">
-        	    <div class="navbar-header col-sm-3">
-	                <span class="h4">路赞后台管理系统</span>
-	            </div>
-                <div class="collapse navbar-collapse col-sm-3 col-sm-offset-6" >
-                    <ul class="nav navbar-nav">
-                        <li><span class="glyphicon glyphicon-user"></span></li>
-                        <li><a href="#">欢迎张三</a> </li>
-                        <li><span class="glyphicon glyphicon-hand-right"></span></li>
-                        <li><a href="#">退出</a></li>
-                    </ul>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-inverse" style="margin-bottom: 0;border:none;">
+                <div class="container-fluid">
+                    <div class="row head">
+                        <div class="navbar-header col-sm-3">
+                            <span class="h4">路赞后台管理系统</span>
+                        </div>
+                        <div class="collapse navbar-collapse col-sm-3 col-sm-offset-6" >
+                            <ul class="nav navbar-nav">
+                                <li><span class="glyphicon glyphicon-user"></span></li>
+                                <li><a href="#">欢迎{{ name.username }}</a></li>
+                                <li><span class="glyphicon glyphicon-hand-right"></span></li>
+                                <li><a href="/manager/login">退出</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </nav>
         </div>
-    </nav>
+    </div>
 </body>
 </html>
