@@ -8,29 +8,31 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <form class="form-horizontal">
+            <form class="form-horizontal" style="padding-top: 20px" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">用户名</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="inputUsername" placeholder="用户名">
+                        <input type="text" class="form-control" id="inputUsername" placeholder="用户名" name="username">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">密码</label>
                     <div class="col-sm-6">
-                        <input type="password" class="form-control" id="inputPassword" placeholder="密码">
+                        <input type="password" class="form-control" id="inputPassword" placeholder="密码" name="password">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">邮箱</label>
                     <div class="col-sm-6">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="邮箱">
+                        <input type="email" class="form-control" id="inputEmail" placeholder="邮箱" name="email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">用户头像</label>
                     <div class="col-sm-6">
-                        <input type="file" id="exampleInputFile">
+                        <input type="file" id="exampleInputFile" name="headimg">
+                        <img class="preview" width="200px" height="200px" >
                     </div>
                 </div>
                 <div class="form-group">
@@ -48,10 +50,102 @@
             </form>
         </div>
     </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">提示框</h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="close">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 </body>
 </html>
 <script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/jquery.form.js"></script>
+<script src="/static/js/jquery.validate-1.13.1.js" ></script>
 <script src="/static/js/bootstrap.js"></script>
 <script>
+    var closeid
+    $("#exampleInputFile").change(function(){
+        console.log(123)
+        var imgFile=this.files.item(0);
+        var _url=window.URL.createObjectURL(imgFile);
+        console.log(_url)
+        $(".preview").attr("src",_url);
+    })
+
+
+    var validator = $("form").validate({
+        //表单验证
+        rules:{
+            username:{
+                required:true,
+                minlength:2,
+                maxlength:6
+            },
+            password:{
+                required:true,
+                minlength:3,
+                maxlength:8
+            },
+            email:{
+                required:true,
+            },
+         },
+        messages:{
+            username:{
+                required:"用户名必须填写",
+                minlength:"用户名不得小于2",
+                maxlength:"用户名不得大于6位"
+            },
+            password:{
+                required:"密码必须填写",
+                minlength:"密码不得小于3",
+                maxlength:"密码不得大于8位"
+            },
+            email: {
+                required:"邮箱必须填写",
+            }
+        },
+        //阻止表单提交
+        submitHandler:function(form) {
+            jump()
+        }
+    });
+    //注册按钮的点击事件
+    {#function goregister() {#}
+    {#    $(location).attr('href', '/user/register/');#}
+    {# }#}
+    //ajaxSubmit  得到后端返回的数据 再进行判断
+    function jump() {
+        $("form").ajaxSubmit(function(data){
+            //data  json格式
+            var data1=JSON.parse(data);
+            closeid=data1["code"]
+            if(data1["code"]==0){
+                console.log(123)
+                $(".modal-body").html("添加管理员成功")
+                $('#myModal').modal('show')
+            }
+            if(data1["code"]==1){
+                $(".modal-body").html("用户名已经存在")
+                $('#myModal').modal('show')
+            }
+        })
+    }
+
+    $("#close").click(function () {
+        $('#myModal').modal('hide')
+        console.log(closeid)
+        if (closeid==0){
+            $(location).attr('href','/manager/userlist/');
+        }
+    })
 
 </script>

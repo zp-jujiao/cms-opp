@@ -7,6 +7,8 @@ class admin(models.Model):
     password=models.CharField(max_length=8)
     email=models.CharField(max_length=50,null=True)
     lasttime=models.DateTimeField(null=True)
+    headimg = models.CharField(max_length=50, null=True)
+    userdetail= models.TextField(null=True)
 
     class Meta:
         db_table = "admin"

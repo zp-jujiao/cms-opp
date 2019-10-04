@@ -4,21 +4,77 @@ from django.forms import forms
 from DjangoUeditor.forms import  UEditorField
 from manager.models import *
 import json
+from datetime import datetime
 
 # Create your views here.
+userinfolist=[]
+
 #管理员管理
 def userManage(request):
     template=loader.get_template('manager/manage-user.html')
-    context = {}
+    form = TestUEditorForm()
+    if request.method == "POST":
+        headImg = request.FILES.get("headimg")
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get("email")
+        print(username,password,email)
+        userjub=admin.objects.filter(username=username).values("id")
+        num=0
+        for i in userjub:
+            if i["id"] :
+                num+=1
+        print(headImg,123)
+        if headImg!=None:
+            size=headImg.size/1024
+            if float(size) > 100:
+                print("文件过大")
+            if headImg.name.split(".")[-1] not in ["jpg", "jpeg", "png"]:
+                print("文件类型不正确")
+            filename = "headImg_" + str(int(datetime.now().timestamp() * 1000000)) + "." + headImg.name.split("/")[-1]
+            if num == 0:
+                if email != "":
+                    print(123)
+                    # userinfo = admin(username=username, password=password, email=email, headimg=filename)
+                    # userdetail
+                    # userinfo.save()
+                    dic = transdata(0, "success")
+            else:
+                dic = transdata(1, "usererro")
+
+            savePath = "static/uploads/" + filename
+            with open(savePath, 'wb') as f:
+                for file in headImg.chunks():
+                    f.write(file)
+                    f.flush()
+        else:
+            if num == 0:
+                if email != "":
+                    # userinfo = admin(username=username, password=password, email=email)
+                    # userdetail
+                    # userinfo.save()
+                    dic = transdata(0, "success")
+            else:
+                dic = transdata(1, "usererro")
+        data = json.dumps(dic)
+        return HttpResponse(data)
+    # username=request.
+    context = {"form":form}
     return HttpResponse(template.render(context,request))
 
-def regist(request):
-    form=TestUEditorForm()
-    return render(request,"manager/manage-user.html",{"form":form})
+def userlist(request):
+    userinfo=admin.objects.all()
+    global userinfolist
+    userinfolist=[]
+    for item in userinfo:
+        userinfodict={"id":item.id,"username":item.username,"password":item.password,"email":item.email,"headimg":item.headimg,"lasttime":item.lasttime}
+        userinfolist.append(userinfodict)
+    print(userinfolist)
+    return render(request,"manager/manage-userlist.html",{"list":userinfolist})
 
 
 class TestUEditorForm(forms.Form):
-    content = UEditorField('内容', width=600, height=300, toolbars="full", imagePath="static/images/", filePath="static/files/",upload_settings={"imageMaxSize":1204000},settings={})
+    content = UEditorField('用户详情', width=600, height=300, toolbars="full", imagePath="static/images/", filePath="static/files/",upload_settings={"imageMaxSize":1204000},settings={})
 
 # 登录页面渲染
 def login(request):
@@ -30,7 +86,6 @@ def loginHandler(request):
     # 接收前端提交的数据
     username = request.POST.get("username")
     password = request.POST.get("password")
-    email = request.POST.get("email")
     login_list = admin.objects.values("username","password").all()
     userinfo=login_list["username"]
     print(userinfo)
@@ -71,3 +126,20 @@ def menu(request):
     template=loader.get_template('manager/manage-menu.html')
     context = {}
     return HttpResponse(template.render(context,request))
+
+
+def transdata(code, msg, id=""):
+    if id == "":
+        print(123)
+        dic = {
+            "code": code,
+            "msg": msg
+        }
+    else:
+        print(456)
+        dic = {
+            "code": code,
+            "msg": msg,
+            "id": id
+        }
+    return dic

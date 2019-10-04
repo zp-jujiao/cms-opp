@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css" >
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-2">
+
+            </div>
+            <div class="col-xs-10">
+                <div class="btn btn-primary" style="margin: 15px 30px">添加文章</div>
+                <div class="table-responsive" style="padding: 0 30px">
+                  <table class="table table-bordered text-center">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>id</th>
+                        <th>用户名</th>
+                        <th>密码</th>
+                        <th>邮箱</th>
+                        <th>头像</th>
+                        <th>最后登录时间</th>
+                        <th>操作</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in list %}
+                      <tr>
+                        <th scope="row"><input type="checkbox"></th>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.username }}</td>
+                        <td>{{ item.password }}</td>
+                        <td>{{ item.email }}</td>
+                        {% if item.headimg != None %}
+                        <td><img src="/static/uploads/{{ item.headimg }}" style="height: 50px;width:50px"></td>
+                        {% else %}
+                        <td><img src="/static/img/a1.jpg" style="height: 50px;width:50px"></td>
+                        {% endif %}
+                        <td>{{ item.lasttime }}</td>
+                        <td>
+                            <div class='btn btn-xs' style="background-color: #00b7ee;color:white"><span class='glyphicon glyphicon-pencil'></span></div>
+                            <div class='btn btn-xs' style="background-color: red;color:white"><span class='glyphicon glyphicon-remove'></span></div>
+                            <div class='btn btn-xs' style="background-color: greenyellow;color:white"><span class='glyphicon glyphicon-search'></span></div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/jquery.form.js"></script>
+<script src="/static/js/jquery.validate-1.13.1.js" ></script>
+<script src="/static/js/bootstrap.js"></script>
+<script>
+
+</script>
